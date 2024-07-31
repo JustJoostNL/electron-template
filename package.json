@@ -25,6 +25,7 @@
     "@mui/x-data-grid": "^7.11.1",
     "cross-fetch": "^4.0.0",
     "deep-equal": "^2.2.3",
+    "electron-builder": "^24.13.3",
     "electron-updater": "^6.2.1",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
