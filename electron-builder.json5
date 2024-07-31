@@ -1,23 +1,54 @@
-/**
- * @see https://www.electron.build/configuration/configuration
- */
 {
-  "appId": "YourAppID",
+  "productName": "App",
+  "appId": "com.justjoostnl.app",
+  "copyright": "Copyright © 2024 JustJoostNL",
+
+  generateUpdatesFilesForAllChannels: true,
   "asar": true,
+
+  //afterSign: "build/notarize.js",
+
   "directories": {
-    "output": "release/${version}"
+    "output": "out"
   },
+
+
   "files": [
+    "!.deepsource.toml",
+    "!dist/**/*",
+    "!node_modules/**/*.{mk,a,o,h}",
+    "!node_modules/node-hid/build/Release/.forge-meta",
     "dist-electron",
     "dist"
   ],
+
+
   "mac": {
-    "artifactName": "${productName}_${version}.${ext}",
-    "target": [
-      "dmg",
-      "zip"
+    hardenedRuntime: true,
+    gatekeeperAssess: false,
+    notarize: false, // notarization is already done in afterSign
+    entitlements: "build/entitlements.mac.plist",
+    entitlementsInherit: "build/entitlements.mac.plist",
+    category: "public.app-category.utilities",
+    target: [
+      {
+        target: "dmg",
+        arch: [
+          "x64",
+          "arm64"
+        ],
+      },
+      {
+        target: "zip",
+        arch: [
+          "x64",
+          "arm64"
+        ],
+      },
     ]
   },
+
+
   "win": {
     "target": [
       {
@@ -27,17 +58,35 @@
         ]
       }
     ],
-    "artifactName": "${productName}_${version}.${ext}"
+    "verifyUpdateCodeSignature": false,
   },
+
+
+  "linux": {
+    mimeTypes: ["x-scheme-handler/app"],
+    desktop: {
+      exec: "app %u",
+    },
+    category: "Utility",
+    "target": [
+      "AppImage"
+    ],
+  },
+
+  "appImage": {
+    "category": "Utility"
+  },
+
+
   "nsis": {
-    "oneClick": false,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": false
+    "oneClick": true,
+    "perMachine": true,
+    "deleteAppDataOnUninstall": true
   },
+
+
   "publish": {
-    "provider": "generic",
-    "channel": "latest",
-    "url": "https://github.com/electron-vite/electron-vite-react/releases/download/v0.9.9/"
+    "provider": "github",
+    "updaterCacheDirName": "app-update-cache",
   }
 }
