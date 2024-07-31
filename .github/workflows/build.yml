@@ -1,9 +1,9 @@
-name: Build/release
+name: Build app
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
