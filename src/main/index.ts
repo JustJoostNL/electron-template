@@ -67,7 +67,7 @@ export async function createMainWindow() {
   } else {
     mainWindow.setMenuBarVisibility(false);
     availablePort = await portfinder.getPortPromise({
-      port: 90909,
+      port: 40404,
       host: "localhost",
     });
     const server = http.createServer((request, response) => {
